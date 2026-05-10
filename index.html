@@ -1,568 +1,195 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Tesla Bot" />
-<meta name="theme-color" content="#080808" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Tesla Bot"/>
+<meta name="theme-color" content="#080808"/>
 <title>Tesla Post Bot</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
--webkit-tap-highlight-color: transparent
-}
-body {
-background: #080808;
-color: #f0f0f0;
-font-family: 'DM Sans',sans-serif;
-min-height: 100vh;
-overflow-x: hidden
-}
-@keyframes spin {
-to {
-transform: rotate(360deg)
-}}
-@keyframes fadeUp {
-from {
-opacity: 0;
-transform: translateY(14px)
-}
-
-to {
-opacity: 1;
-transform: translateY(0)
-}}
-@keyframes pulse {
-0%,100% {
-opacity: .4
-}
-
-50% {
-opacity: 1
-}}
-@keyframes shake {
-0%,100% {
-transform: translateX(0)
-}
-
-25% {
-transform: translateX(-8px)
-}
-
-75% {
-transform: translateX(8px)
-}}
-.fu {
-animation: fadeUp .35s ease both
-}
-.btn {
-transition: all .18s;
-cursor: pointer
-}
-.btn:active {
-opacity: .75;
-transform: scale(.98)
-}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:#080808;color:#f0f0f0;font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.fu{animation:fadeUp .35s ease both}
+.btn{transition:all .18s;cursor:pointer}
+.btn:active{opacity:.75;transform:scale(.98)}
 
 /* PASSWORD */
-.pwd-screen {
-position: fixed;
-inset: 0;
-background: #080808;
-z-index: 999;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 32px
-}
-.pwd-logo {
-width: 72px;
-height: 72px;
-background: #E31937;
-border-radius: 16px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 38px;
-margin-bottom: 20px
-}
-.pwd-title {
-font-family: 'Bebas Neue';
-font-size: 28px;
-letter-spacing: .08em;
-margin-bottom: 6px
-}
-.pwd-sub {
-font-size: 12px;
-color: #444;
-letter-spacing: .1em;
-text-transform: uppercase;
-margin-bottom: 32px
-}
-.pwd-input {
-width: 100%;
-max-width: 280px;
-padding: 14px 16px;
-background: #111;
-border: 1px solid #2a2a2a;
-border-radius: 8px;
-color: #f0f0f0;
-font-size: 18px;
-letter-spacing: .2em;
-text-align: center;
-outline: none;
-font-family: 'DM Sans',sans-serif;
-margin-bottom: 12px
-}
-.pwd-input:focus {
-border-color: #E31937
-}
-.pwd-input.error {
-border-color: #ff4444;
-animation: shake .3s ease
-}
-.pwd-btn {
-width: 100%;
-max-width: 280px;
-padding: 14px;
-background: #E31937;
-color: white;
-border: none;
-border-radius: 8px;
-font-size: 14px;
-font-weight: 500;
-letter-spacing: .1em;
-text-transform: uppercase;
-font-family: 'DM Sans',sans-serif
-}
-.pwd-error {
-font-size: 12px;
-color: #ff4444;
-margin-top: 8px;
-height: 16px;
-text-align: center
-}
+.pwd-screen{position:fixed;inset:0;background:#080808;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px}
+.pwd-logo{width:72px;height:72px;background:#E31937;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:38px;margin-bottom:20px}
+.pwd-title{font-family:'Bebas Neue';font-size:28px;letter-spacing:.08em;margin-bottom:6px}
+.pwd-sub{font-size:12px;color:#444;letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px}
+.pwd-input{width:100%;max-width:280px;padding:14px 16px;background:#111;border:1px solid #2a2a2a;border-radius:8px;color:#f0f0f0;font-size:18px;letter-spacing:.2em;text-align:center;outline:none;font-family:'DM Sans',sans-serif;margin-bottom:12px}
+.pwd-input:focus{border-color:#E31937}
+.pwd-input.error{border-color:#ff4444;animation:shake .3s ease}
+.pwd-btn{width:100%;max-width:280px;padding:14px;background:#E31937;color:white;border:none;border-radius:8px;font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+.pwd-error{font-size:12px;color:#ff4444;margin-top:8px;height:16px;text-align:center}
 
 /* HEADER */
-.header {
-background: #0b0b0b;
-border-bottom: 1px solid #181818;
-padding: 14px 16px;
-position: sticky;
-top: 0;
-z-index: 100
-}
-.header-row {
-display: flex;
-align-items: center;
-gap: 10px
-}
-.header-icon {
-width: 34px;
-height: 34px;
-background: #E31937;
-border-radius: 6px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 18px;
-flex-shrink: 0
-}
-.header-title {
-font-family: 'Bebas Neue';
-font-size: 20px;
-letter-spacing: .08em;
-line-height: 1
-}
-.header-sub {
-font-size: 10px;
-color: #444;
-letter-spacing: .12em;
-text-transform: uppercase
-}
-.referral-pill {
-margin-top: 10px;
-padding: 7px 10px;
-background: #111;
-border: 1px solid #1a1a1a;
-border-radius: 4px;
-font-size: 11px;
-color: #555;
-display: flex;
-align-items: center;
-gap: 7px
-}
-.referral-dot {
-width: 6px;
-height: 6px;
-border-radius: 50%;
-background: #22c55e;
-animation: pulse 2s infinite;
-flex-shrink: 0
-}
-.referral-code {
-color: #E31937;
-font-weight: 500
-}
+.header{background:#0b0b0b;border-bottom:1px solid #181818;padding:14px 16px;position:sticky;top:0;z-index:100}
+.header-row{display:flex;align-items:center;gap:10px}
+.header-icon{width:34px;height:34px;background:#E31937;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.header-title{font-family:'Bebas Neue';font-size:20px;letter-spacing:.08em;line-height:1}
+.header-sub{font-size:10px;color:#444;letter-spacing:.12em;text-transform:uppercase}
+.referral-pill{margin-top:10px;padding:7px 10px;background:#111;border:1px solid #1a1a1a;border-radius:4px;font-size:11px;color:#555;display:flex;align-items:center;gap:7px}
+.referral-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite;flex-shrink:0}
+.referral-code{color:#E31937;font-weight:500}
 
 /* MAIN */
-.main {
-padding: 14px 16px;
-display: flex;
-flex-direction: column;
-gap: 8px
-}
-.btn-primary {
-width: 100%;
-padding: 15px;
-background: #E31937;
-color: white;
-border: none;
-border-radius: 6px;
-font-size: 13px;
-font-weight: 500;
-letter-spacing: .1em;
-text-transform: uppercase;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-font-family: 'DM Sans',sans-serif
-}
-.btn-primary:disabled {
-background: #1a1a1a;
-color: #444
-}
-.btn-secondary {
-width: 100%;
-padding: 11px;
-background: transparent;
-color: #555;
-border: 1px solid #1e1e1e;
-border-radius: 6px;
-font-size: 11px;
-letter-spacing: .08em;
-text-transform: uppercase;
-font-family: 'DM Sans',sans-serif
-}
-.spinner {
-width: 14px;
-height: 14px;
-border: 2px solid rgba(255,255,255,.25);
-border-top-color: white;
-border-radius: 50%;
-animation: spin .8s linear infinite
-}
-.custom-box {
-display: flex;
-flex-direction: column;
-gap: 7px
-}
-textarea {
-width: 100%;
-padding: 11px;
-background: #111;
-border: 1px solid #222;
-border-radius: 5px;
-color: #f0f0f0;
-font-size: 13px;
-resize: none;
-outline: none;
-font-family: 'DM Sans',sans-serif;
-line-height: 1.6
-}
+.main{padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.btn-primary{width:100%;padding:15px;background:#E31937;color:white;border:none;border-radius:6px;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'DM Sans',sans-serif}
+.btn-primary:disabled{background:#1a1a1a;color:#444}
+.btn-secondary{width:100%;padding:11px;background:transparent;color:#555;border:1px solid #1e1e1e;border-radius:6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.25);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite}
+.custom-box{display:flex;flex-direction:column;gap:7px}
+textarea{width:100%;padding:11px;background:#111;border:1px solid #222;border-radius:5px;color:#f0f0f0;font-size:13px;resize:none;outline:none;font-family:'DM Sans',sans-serif;line-height:1.6}
 
 /* POST */
-.post-wrap {
-padding: 0 16px 16px
-}
-.post-header {
-display: flex;
-align-items: flex-start;
-gap: 9px;
-margin-bottom: 12px
-}
-.post-emoji {
-font-size: 26px;
-line-height: 1
-}
-.post-title {
-font-family: 'Bebas Neue';
-font-size: 20px;
-letter-spacing: .06em;
-line-height: 1.05
-}
-.post-hook {
-font-size: 11px;
-color: #555;
-font-style: italic;
-margin-top: 3px
-}
-.images-label {
-font-size: 10px;
-color: #3a3a3a;
-letter-spacing: .14em;
-text-transform: uppercase;
-margin-bottom: 8px
-}
-.text-card {
-background: #0e0e0e;
-border: 1px solid #1a1a1a;
-border-radius: 6px;
-overflow: hidden
-}
-.tabs {
-display: flex;
-border-bottom: 1px solid #1a1a1a
-}
-.tab {
-flex: 1;
-padding: 10px 4px;
-background: transparent;
-color: #444;
-border: none;
-border-bottom: 2px solid transparent;
-font-size: 11px;
-letter-spacing: .1em;
-text-transform: uppercase;
-cursor: pointer;
-font-family: 'DM Sans',sans-serif;
-transition: all .18s
-}
-.tab.active {
-background: #161616;
-color: #E31937;
-border-bottom-color: #E31937
-}
-.post-text {
-padding: 13px 15px;
-font-size: 13px;
-line-height: 1.78;
-color: #ccc;
-white-space: pre-wrap;
-min-height: 70px
-}
-.btn-copy {
-width: calc(100% - 30px);
-margin: 0 15px 8px;
-padding: 10px;
-background: #1a1a1a;
-color: #666;
-border: 1px solid #242424;
-border-radius: 4px;
-font-size: 11px;
-letter-spacing: .1em;
-text-transform: uppercase;
-font-family: 'DM Sans',sans-serif
-}
-.btn-copy.copied {
-background: #166534;
-color: #4ade80;
-border-color: #166534
-}
-.btn-pexels {
-display: block;
-width: calc(100% - 30px);
-margin: 0 15px 13px;
-padding: 10px;
-background: #0d0d0d;
-border: 1px solid #1a1a1a;
-border-radius: 4px;
-color: #E31937;
-font-size: 11px;
-letter-spacing: .1em;
-text-transform: uppercase;
-text-align: center;
-text-decoration: none;
-font-family: 'DM Sans',sans-serif
-}
+.post-wrap{padding:0 16px 16px}
+.post-header{display:flex;align-items:flex-start;gap:9px;margin-bottom:12px}
+.post-emoji{font-size:26px;line-height:1}
+.post-title{font-family:'Bebas Neue';font-size:20px;letter-spacing:.06em;line-height:1.05}
+.post-hook{font-size:11px;color:#555;font-style:italic;margin-top:3px}
+.images-label{font-size:10px;color:#3a3a3a;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.text-card{background:#0e0e0e;border:1px solid #1a1a1a;border-radius:6px;overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid #1a1a1a}
+.tab{flex:1;padding:10px 4px;background:transparent;color:#444;border:none;border-bottom:2px solid transparent;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s}
+.tab.active{background:#161616;color:#E31937;border-bottom-color:#E31937}
+.post-text{padding:13px 15px;font-size:13px;line-height:1.78;color:#ccc;white-space:pre-wrap;min-height:70px}
+.btn-copy{width:calc(100% - 30px);margin:0 15px 8px;padding:10px;background:#1a1a1a;color:#666;border:1px solid #242424;border-radius:4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+.btn-copy.copied{background:#166534;color:#4ade80;border-color:#166534}
+.btn-pexels{display:block;width:calc(100% - 30px);margin:0 15px 13px;padding:10px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:4px;color:#E31937;font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:center;text-decoration:none;font-family:'DM Sans',sans-serif}
 
 /* HISTORY */
-.history-wrap {
-padding: 0 16px 24px
-}
-.history-label {
-font-size: 10px;
-color: #2e2e2e;
-letter-spacing: .14em;
-text-transform: uppercase;
-margin-bottom: 8px
-}
-.history-item {
-width: 100%;
-padding: 9px 11px;
-background: #0d0d0d;
-border: 1px solid #181818;
-border-radius: 4px;
-color: #aaa;
-font-size: 12px;
-text-align: left;
-display: flex;
-align-items: center;
-gap: 8px;
-font-family: 'DM Sans',sans-serif;
-margin-bottom: 5px
-}
-.history-item.active {
-background: #161616;
-border-color: #E31937
-}
-.history-text {
-flex: 1;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap
-}
-.empty {
-padding: 52px 20px;
-text-align: center;
-color: #222
-}
-.empty-icon {
-font-size: 44px;
-margin-bottom: 12px
-}
-.safe-bottom {
-height: max(env(safe-area-inset-bottom),16px)
-}
+.history-wrap{padding:0 16px 24px}
+.history-label{font-size:10px;color:#2e2e2e;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.history-item{width:100%;padding:9px 11px;background:#0d0d0d;border:1px solid #181818;border-radius:4px;color:#aaa;font-size:12px;text-align:left;display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;margin-bottom:5px}
+.history-item.active{background:#161616;border-color:#E31937}
+.history-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.empty{padding:52px 20px;text-align:center;color:#222}
+.empty-icon{font-size:44px;margin-bottom:12px}
+.safe-bottom{height:max(env(safe-area-inset-bottom),16px)}
 </style>
 </head>
 <body>
 
 <!-- PASSWORD SCREEN -->
 <div class="pwd-screen" id="pwd-screen">
-<div class="pwd-logo">
-⚡
-</div>
-<div class="pwd-title">
-TESLA BOT
-</div>
-<div class="pwd-sub">
-Accesso Privato
-</div>
-<input class="pwd-input" id="pwd-input" type="password" placeholder="••••••••"
-onkeydown="if(event.key==='Enter')checkPwd()" maxlength="30" autocomplete="off" />
-<button class="btn pwd-btn" onclick="checkPwd()">Accedi</button>
-<div class="pwd-error" id="pwd-error"></div>
+  <div class="pwd-logo">⚡</div>
+  <div class="pwd-title">TESLA BOT</div>
+  <div class="pwd-sub">Accesso Privato</div>
+  <input class="pwd-input" id="pwd-input" type="password" placeholder="••••••••"
+         onkeydown="if(event.key==='Enter')checkPwd()" maxlength="30" autocomplete="off"/>
+  <button class="btn pwd-btn" onclick="checkPwd()">Accedi</button>
+  <div class="pwd-error" id="pwd-error"></div>
 </div>
 
 <!-- APP -->
 <div id="app" style="display:none">
-<div class="header">
-<div class="header-row">
-<div class="header-icon">
-⚡
-</div>
-<div>
-<div class="header-title">
-TESLA POST BOT
-</div>
-<div class="header-sub">
-Post + Cerca Foto Gratis
-</div>
-</div>
-</div>
-<div class="referral-pill">
-<div class="referral-dot"></div>
-Referral: <span class="referral-code">ts.la/fabio336544</span>
-</div>
-</div>
+  <div class="header">
+    <div class="header-row">
+      <div class="header-icon">⚡</div>
+      <div>
+        <div class="header-title">TESLA POST BOT</div>
+        <div class="header-sub">Post + Cerca Foto Gratis</div>
+      </div>
+    </div>
+    <div class="referral-pill">
+      <div class="referral-dot"></div>
+      Referral: <span class="referral-code">ts.la/fabio336544</span>
+    </div>
+  </div>
 
-<div class="main">
-<button class="btn btn-primary" id="btn-random" onclick="generateRandom()">
-⚡ Genera Post
-</button>
-<button class="btn btn-secondary" onclick="toggleCustom()">+ Notizia Personalizzata</button>
-<div class="custom-box" id="custom-box" style="display:none">
-<textarea id="custom-input" rows="3" placeholder="Incolla una notizia Tesla da Tesla.com, electrek.co..."></textarea>
-<button class="btn btn-primary" style="background:#333" onclick="generateCustom()">Genera</button>
-</div>
-</div>
+  <div class="main">
+    <button class="btn btn-primary" id="btn-random" onclick="generateRandom()">
+      ⚡ Genera Post
+    </button>
+    <button class="btn btn-secondary" onclick="toggleCustom()">+ Notizia Personalizzata</button>
+    <div class="custom-box" id="custom-box" style="display:none">
+      <textarea id="custom-input" rows="3" placeholder="Incolla una notizia Tesla da Tesla.com, electrek.co..."></textarea>
+      <button class="btn btn-primary" style="background:#333" onclick="generateCustom()">Genera</button>
+    </div>
+  </div>
 
-<div id="post-container"></div>
-<div id="history-container"></div>
-<div class="safe-bottom"></div>
+  <div id="post-container"></div>
+  <div id="history-container"></div>
+  <div class="safe-bottom"></div>
 </div>
 
 <script>
 // ── CONFIG ──
 const REFERRAL = "https://referral-1gs.pages.dev";
-const API_URL = "https://api.anthropic.com/v1/messages";
-// Inserisci qui la tua API key (verrà usata solo dal tuo browser)
-const API_KEY = "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";
+const API_URL  = "https://tesla-proxy.fabio-bulzoni.workers.dev";
+// API gestita dal Worker Cloudflare
 
 const PWD_HASH = "ac263f4dbe3a547c39a8e3368ef3a758e2a08df391b06ebfb82086746761ea89"; // Tesla2026!
 
 const NEWS = [
-// Tesla veicoli
-"Tesla Model Y Juniper: recensione completa dopo 20.000 km in Italia",
-"Tesla Model 3 Highland vs Model Y: quale scegliere nel 2026",
-"Tesla Cybertruck: prime impressioni dopo l'arrivo in Europa",
-"Tesla Roadster 2026: aggiornamenti su data uscita e prestazioni",
-"Tesla Semi entra in produzione: rivoluzione nel trasporto merci elettrico",
-// FSD e software
-"Tesla FSD v13 in Europa: test reale su strade italiane",
-"Aggiornamento OTA Tesla: tutte le novità dell'ultimo software",
-"Tesla Autopilot vs FSD: differenze reali e quando conviene l'upgrade",
-"Full Self Driving Tesla: come funziona davvero su autostrada",
-// Energia e infrastruttura
-"Supercharger V4 in Italia: velocità di ricarica fino a 350kW",
-"Tesla Powerwall 3: accumulo energia domestica, prezzi e vantaggi",
-"Rete Supercharger aperta ad altri marchi: cosa cambia per i proprietari Tesla",
-"Ricarica Tesla in viaggio: guida completa ai costi 2026",
-// Mercato e industria
-"Auto elettriche più vendute in Europa nel 2026: Tesla ancora in testa?",
-"Incentivi auto elettriche 2026: guida completa per acquistare una Tesla",
-"BYD vs Tesla: il confronto definitivo tra i due giganti EV",
-"Rivian, Lucid, NIO: i competitor di Tesla che devi conoscere",
-"Tesla vs BMW i4 vs Polestar 2: il grande confronto 2026",
-// SpaceX e innovazione
-"SpaceX Starship: il razzo più grande della storia punta a Marte",
-"Starlink in Italia: velocità reali, prezzi e quando conviene",
-"SpaceX lancia altri 60 satelliti Starlink: copertura globale quasi completa",
-// Optimus robot
-"Tesla Optimus robot: aggiornamenti sullo sviluppo e quando arriverà",
-"Optimus Gen 2: il robot di Tesla che lavora in fabbrica autonomamente",
-"Robot umanoidi 2026: Tesla Optimus vs Figure vs Boston Dynamics Atlas",
-// Tech e innovazione generale
-"Batteria solid-state 2026: chi è più vicino alla produzione di massa",
-"V2G Vehicle-to-Grid: caricare la casa con la Tesla, guida pratica",
-"Pompa di calore Tesla: efficienza in inverno, cosa sapere",
-"Tesla Megapack: come le batterie industriali stanno salvando la rete elettrica",
-"Guida autonoma livello 4: dove siamo nel 2026 e cosa manca",
-"Chip AI per auto: Tesla vs NVIDIA vs Qualcomm",
-// Lifestyle e community
-"Vita con una Tesla dopo 2 anni: cosa nessuno ti dice prima di comprare",
-"Tesla in montagna d'inverno: autonomia reale e consigli pratici",
-"Road trip Europa in Tesla: guida alla pianificazione del viaggio",
-"Assicurazione Tesla: come risparmiare e quale polizza scegliere",
-"Tesla usata: come valutare l'acquisto e cosa controllare"
+  // Tesla veicoli
+  "Tesla Model Y Juniper: recensione completa dopo 20.000 km in Italia",
+  "Tesla Model 3 Highland vs Model Y: quale scegliere nel 2026",
+  "Tesla Cybertruck: prime impressioni dopo l'arrivo in Europa",
+  "Tesla Roadster 2026: aggiornamenti su data uscita e prestazioni",
+  "Tesla Semi entra in produzione: rivoluzione nel trasporto merci elettrico",
+  // FSD e software
+  "Tesla FSD v13 in Europa: test reale su strade italiane",
+  "Aggiornamento OTA Tesla: tutte le novità dell'ultimo software",
+  "Tesla Autopilot vs FSD: differenze reali e quando conviene l'upgrade",
+  "Full Self Driving Tesla: come funziona davvero su autostrada",
+  // Energia e infrastruttura
+  "Supercharger V4 in Italia: velocità di ricarica fino a 350kW",
+  "Tesla Powerwall 3: accumulo energia domestica, prezzi e vantaggi",
+  "Rete Supercharger aperta ad altri marchi: cosa cambia per i proprietari Tesla",
+  "Ricarica Tesla in viaggio: guida completa ai costi 2026",
+  // Mercato e industria
+  "Auto elettriche più vendute in Europa nel 2026: Tesla ancora in testa?",
+  "Incentivi auto elettriche 2026: guida completa per acquistare una Tesla",
+  "BYD vs Tesla: il confronto definitivo tra i due giganti EV",
+  "Rivian, Lucid, NIO: i competitor di Tesla che devi conoscere",
+  "Tesla vs BMW i4 vs Polestar 2: il grande confronto 2026",
+  // SpaceX e innovazione
+  "SpaceX Starship: il razzo più grande della storia punta a Marte",
+  "Starlink in Italia: velocità reali, prezzi e quando conviene",
+  "SpaceX lancia altri 60 satelliti Starlink: copertura globale quasi completa",
+  // Optimus robot
+  "Tesla Optimus robot: aggiornamenti sullo sviluppo e quando arriverà",
+  "Optimus Gen 2: il robot di Tesla che lavora in fabbrica autonomamente",
+  "Robot umanoidi 2026: Tesla Optimus vs Figure vs Boston Dynamics Atlas",
+  // Tech e innovazione generale
+  "Batteria solid-state 2026: chi è più vicino alla produzione di massa",
+  "V2G Vehicle-to-Grid: caricare la casa con la Tesla, guida pratica",
+  "Pompa di calore Tesla: efficienza in inverno, cosa sapere",
+  "Tesla Megapack: come le batterie industriali stanno salvando la rete elettrica",
+  "Guida autonoma livello 4: dove siamo nel 2026 e cosa manca",
+  "Chip AI per auto: Tesla vs NVIDIA vs Qualcomm",
+  // Lifestyle e community
+  "Vita con una Tesla dopo 2 anni: cosa nessuno ti dice prima di comprare",
+  "Tesla in montagna d'inverno: autonomia reale e consigli pratici",
+  "Road trip Europa in Tesla: guida alla pianificazione del viaggio",
+  "Assicurazione Tesla: come risparmiare e quale polizza scegliere",
+  "Tesla usata: come valutare l'acquisto e cosa controllare"
 ];
 
 // Shuffle to avoid repetition
 function shuffleArray(arr) {
-const a = [...arr];
-for (let i = a.length-1; i > 0; i--) {
-const j = Math.floor(Math.random()*(i+1));
-[a[i],
-a[j]] = [a[j],
-a[i]];
-}
-return a;
+  const a = [...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
 }
 let newsPool = shuffleArray(NEWS);
 let newsIndex = 0;
 function getNextNews() {
-if (newsIndex >= newsPool.length) {
-newsPool = shuffleArray(NEWS); newsIndex = 0;
-}
-return newsPool[newsIndex++];
+  if(newsIndex >= newsPool.length) { newsPool = shuffleArray(NEWS); newsIndex = 0; }
+  return newsPool[newsIndex++];
 }
 
 const PROMPT = `Sei un social media manager EV italiano. Genera SOLO questo JSON, nessun testo extra:
@@ -572,191 +199,168 @@ let posts = [], activeId = null, activeTab = "instagram";
 
 // ── PASSWORD ──
 async function hashStr(str) {
-const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
-return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
 }
 
 async function checkPwd() {
-const val = document.getElementById("pwd-input").value;
-const h = await hashStr(val);
-if (h === PWD_HASH) {
-sessionStorage.setItem("tbot", "1");
-document.getElementById("pwd-screen").style.display = "none";
-document.getElementById("app").style.display = "block";
-} else {
-const inp = document.getElementById("pwd-input");
-inp.classList.add("error");
-document.getElementById("pwd-error").textContent = "Password errata";
-inp.value = "";
-setTimeout(()=> {
-inp.classList.remove("error"); document.getElementById("pwd-error").textContent = "";
-}, 1500);
-}
+  const val = document.getElementById("pwd-input").value;
+  const h   = await hashStr(val);
+  if(h === PWD_HASH) {
+    sessionStorage.setItem("tbot","1");
+    document.getElementById("pwd-screen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  } else {
+    const inp = document.getElementById("pwd-input");
+    inp.classList.add("error");
+    document.getElementById("pwd-error").textContent = "Password errata";
+    inp.value = "";
+    setTimeout(()=>{ inp.classList.remove("error"); document.getElementById("pwd-error").textContent=""; }, 1500);
+  }
 }
 
-if (sessionStorage.getItem("tbot")) {
-document.getElementById("pwd-screen").style.display = "none";
-document.getElementById("app").style.display = "block";
+if(sessionStorage.getItem("tbot")) {
+  document.getElementById("pwd-screen").style.display = "none";
+  document.getElementById("app").style.display = "block";
 } else {
-setTimeout(()=>document.getElementById("pwd-input").focus(), 300);
+  setTimeout(()=>document.getElementById("pwd-input").focus(), 300);
 }
 
 // ── UI ──
 function toggleCustom() {
-const b = document.getElementById("custom-box");
-b.style.display = b.style.display === "none" ? "flex": "none";
+  const b = document.getElementById("custom-box");
+  b.style.display = b.style.display==="none" ? "flex" : "none";
 }
 
 function setLoading(on) {
-const btn = document.getElementById("btn-random");
-btn.disabled = on;
-btn.innerHTML = on ? '<div class="spinner"></div> Generando...': '⚡ Genera Post';
+  const btn = document.getElementById("btn-random");
+  btn.disabled = on;
+  btn.innerHTML = on ? '<div class="spinner"></div> Generando...' : '⚡ Genera Post';
 }
 
 // ── GENERATE ──
 async function generateRandom() {
-await generate(getNextNews());
+  await generate(getNextNews());
 }
 
 async function generateCustom() {
-const v = document.getElementById("custom-input").value.trim();
-if (!v) return;
-document.getElementById("custom-input").value = "";
-document.getElementById("custom-box").style.display = "none";
-await generate(v);
+  const v = document.getElementById("custom-input").value.trim();
+  if(!v) return;
+  document.getElementById("custom-input").value = "";
+  document.getElementById("custom-box").style.display = "none";
+  await generate(v);
 }
 
 async function generate(newsText) {
-setLoading(true);
-try {
-const res = await fetch(API_URL, {
-method: "POST",
-headers: {
-"Content-Type": "application/json",
-"x-api-key": API_KEY,
-"anthropic-version": "2023-06-01",
-"anthropic-dangerous-direct-browser-access": "true"
-},
-body: JSON.stringify({
-model: "claude-haiku-4-5-20251001",
-max_tokens: 900,
-system: PROMPT,
-messages: [{
-role: "user", content: "Notizia: " + newsText
-}]
-})
-});
-const data = await res.json();
-if (data.error) throw new Error(data.error.message);
-const raw = data.content?.find(b => b.type === "text")?.text || "{}";
-const p = JSON.parse(raw.replace(/```json|```/g, "").trim());
-const post = {
-id: Date.now(),
-news: newsText,
-...p
-};
-posts.unshift(post);
-activeId = post.id;
-activeTab = "instagram";
-renderAll();
-} catch(e) {
-alert("Errore: " + e.message);
-}
-setLoading(false);
+  setLoading(true);
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 900,
+        system: PROMPT,
+        messages: [{ role:"user", content:"Notizia: " + newsText }]
+      })
+    });
+    const data = await res.json();
+    if(data.error) throw new Error(data.error.message);
+    const raw  = data.content?.find(b=>b.type==="text")?.text || "{}";
+    const p    = JSON.parse(raw.replace(/```json|```/g,"").trim());
+    const post = { id:Date.now(), news:newsText, ...p };
+    posts.unshift(post);
+    activeId  = post.id;
+    activeTab = "instagram";
+    renderAll();
+  } catch(e) {
+    alert("Errore: " + e.message);
+  }
+  setLoading(false);
 }
 
 // ── RENDER ──
 function switchTab(tab) {
-activeTab = tab;
-const post = posts.find(p => p.id === activeId);
-if (post) renderPost(post);
+  activeTab = tab;
+  const post = posts.find(p=>p.id===activeId);
+  if(post) renderPost(post);
 }
 
 function copyText(postId) {
-const post = posts.find(p => p.id === postId);
-if (!post) return;
-const text = post[activeTab];
-const btn = document.getElementById("copy-btn");
-const success = () => {
-if (btn) {
-btn.textContent = "✓ Copiato!"; btn.classList.add("copied"); setTimeout(()=> {
-btn.textContent = "Copia Testo"; btn.classList.remove("copied");
-}, 2000);
-}
-};
-const fallback = () => {
-const ta = document.createElement("textarea");
-ta.value = text;
-ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none";
-document.body.appendChild(ta);
-ta.focus(); ta.select();
-try {
-document.execCommand("copy"); success();
-} catch(e) {}
-document.body.removeChild(ta);
-};
-if (navigator.clipboard && window.isSecureContext) {
-navigator.clipboard.writeText(text).then(success).catch(fallback);
-} else {
-fallback();
-}
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+  const text = post[activeTab];
+  const btn = document.getElementById("copy-btn");
+  const success = () => {
+    if(btn){ btn.textContent="✓ Copiato!"; btn.classList.add("copied"); setTimeout(()=>{ btn.textContent="Copia Testo"; btn.classList.remove("copied"); },2000); }
+  };
+  const fallback = () => {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none";
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    try { document.execCommand("copy"); success(); } catch(e) {}
+    document.body.removeChild(ta);
+  };
+  if(navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(success).catch(fallback);
+  } else { fallback(); }
 }
 
 function setActive(id) {
-activeId = id; activeTab = "instagram";
-renderAll();
-window.scrollTo({
-top: 0, behavior: "smooth"
-});
+  activeId = id; activeTab = "instagram";
+  renderAll();
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function renderPost(post) {
-const pexelsUrl = "https://www.pexels.com/search/" + encodeURIComponent(post.img_query || "tesla car") + "/";
-document.getElementById("post-container").innerHTML = `
-<div class="post-wrap fu">
-<div class="post-header">
-<div class="post-emoji">${post.emoji || "⚡"}</div>
-<div>
-<div class="post-title">${post.titolo || ""}</div>
-<div class="post-hook">${post.hook || ""}</div>
-</div>
-</div>
-<div class="text-card">
-<div class="tabs">
-<button class="tab btn ${activeTab === "instagram"?"active": ""}" onclick="switchTab('instagram')">📸 Instagram</button>
-<button class="tab btn ${activeTab === "community"?"active": ""}" onclick="switchTab('community')">💬 Community</button>
-</div>
-<div class="post-text">${post[activeTab] || ""}</div>
-<button class="btn btn-copy" id="copy-btn" onclick="copyText(${post.id})">Copia Testo</button>
-<a class="btn btn-pexels" href="${pexelsUrl}" target="_blank" rel="noopener">🔍 Cerca Foto su Pexels →</a>
-</div>
-</div>`;
+  const pexelsUrl = "https://www.pexels.com/search/" + encodeURIComponent(post.img_query||"tesla car") + "/";
+  document.getElementById("post-container").innerHTML = `
+  <div class="post-wrap fu">
+    <div class="post-header">
+      <div class="post-emoji">${post.emoji||"⚡"}</div>
+      <div>
+        <div class="post-title">${post.titolo||""}</div>
+        <div class="post-hook">${post.hook||""}</div>
+      </div>
+    </div>
+    <div class="text-card">
+      <div class="tabs">
+        <button class="tab btn ${activeTab==="instagram"?"active":""}" onclick="switchTab('instagram')">📸 Instagram</button>
+        <button class="tab btn ${activeTab==="community"?"active":""}" onclick="switchTab('community')">💬 Community</button>
+      </div>
+      <div class="post-text">${post[activeTab]||""}</div>
+      <button class="btn btn-copy" id="copy-btn" onclick="copyText(${post.id})">Copia Testo</button>
+      <a class="btn btn-pexels" href="${pexelsUrl}" target="_blank" rel="noopener">🔍 Cerca Foto su Pexels →</a>
+    </div>
+  </div>`;
 }
 
 function renderHistory() {
-if (posts.length <= 1) {
-document.getElementById("history-container").innerHTML = ""; return;
-}
-document.getElementById("history-container").innerHTML = `
-<div class="history-wrap">
-<div class="history-label">Storico (${posts.length})</div>
-${posts.slice(1).map(p => `
-<button class="btn history-item ${activeId === p.id?"active": ""}" onclick="setActive(${p.id})">
-<span>${p.emoji || "⚡"}</span>
-<span class="history-text">${p.titolo || ""}</span>
-</button>`).join("")}
-</div>`;
+  if(posts.length <= 1) { document.getElementById("history-container").innerHTML=""; return; }
+  document.getElementById("history-container").innerHTML = `
+  <div class="history-wrap">
+    <div class="history-label">Storico (${posts.length})</div>
+    ${posts.slice(1).map(p=>`
+      <button class="btn history-item ${activeId===p.id?"active":""}" onclick="setActive(${p.id})">
+        <span>${p.emoji||"⚡"}</span>
+        <span class="history-text">${p.titolo||""}</span>
+      </button>`).join("")}
+  </div>`;
 }
 
 function renderAll() {
-const post = posts.find(p => p.id === activeId);
-if (post) renderPost(post);
-else document.getElementById("post-container").innerHTML = `
-<div class="empty">
-<div class="empty-icon">⚡</div>
-<div style="font-size:13px">Premi il pulsante per generare<br/>il tuo primo post Tesla</div>
-</div>`;
-renderHistory();
+  const post = posts.find(p=>p.id===activeId);
+  if(post) renderPost(post);
+  else document.getElementById("post-container").innerHTML = `
+    <div class="empty">
+      <div class="empty-icon">⚡</div>
+      <div style="font-size:13px">Premi il pulsante per generare<br/>il tuo primo post Tesla</div>
+    </div>`;
+  renderHistory();
 }
 
 renderAll();
